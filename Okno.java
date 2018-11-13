@@ -28,7 +28,7 @@ public class Okno extends JFrame {
          initGUI();
         setVisible(true); 
         
-       animationLoop();
+      // animationLoop();
         
         
     }
@@ -49,7 +49,7 @@ public class Okno extends JFrame {
           repaint();
         
           try {
-            Thread.sleep(50);
+            Thread.sleep(10);
           } catch (InterruptedException ex) {System.out.println("Wyjątek: "+ex);      }
         }
     }
