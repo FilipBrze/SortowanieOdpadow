@@ -14,7 +14,7 @@ public class Odpad {
    Rodzaj rodzaj;
   public Image obrazek;
    public boolean wpadl = false; // false jezeli nie wpadl do pojemnika, true jezeli wpadl
-   int dy = 3;
+   int dy = 1;
    int poczatkowy_x = 0;
    int poczatkowy_y = 0;
    int aktualny_y = 0;
