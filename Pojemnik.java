@@ -10,14 +10,17 @@ public class Pojemnik {
     public Image obrazek;
     int polozenie_x;
     int polozenie_y ;
-    boolean klikniety = false;
+    boolean klikniety;
     int szerokosc;
+    int wysokosc;
     
     
-    Pojemnik(int jaki, Image [] obrazki){
+    Pojemnik(int jaki, Image [] obrazki, int wysokosc){
+        klikniety = false;
         this.rodzaj = Okresl_rodzaj (jaki);
         this.obrazek = obrazki [jaki];
-        this.szerokosc = 1024/Pliki.zdjecia_pojemnikow.length;
+        szerokosc = Okno.szerokosc/Pliki.zdjecia_pojemnikow.length; 
+        this.wysokosc = wysokosc;
     }
     
     private Odpad.Rodzaj Okresl_rodzaj (int jaki){
@@ -41,6 +44,7 @@ public class Pojemnik {
     
     public void UstawKlikniecie(boolean klikniety){
         this.klikniety = klikniety;
+
     };
     
     
