@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 
 public class Okno extends JFrame {
     
-    int wysokosc  ;
-    int szerokosc;
+    public static int wysokosc  ;
+    public static int szerokosc;
     int x_srodka;
     int y_srodka;
 
@@ -28,7 +28,7 @@ public class Okno extends JFrame {
          initGUI();
         setVisible(true); 
         
-      // animationLoop();
+       animationLoop();
         
         
     }
@@ -49,7 +49,7 @@ public class Okno extends JFrame {
           repaint();
         
           try {
-            Thread.sleep(10);
+            Thread.sleep(5);
           } catch (InterruptedException ex) {System.out.println("Wyjątek: "+ex);      }
         }
     }
