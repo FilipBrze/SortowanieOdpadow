@@ -7,7 +7,10 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import static java.lang.Thread.sleep;
+import java.util.Random;
 import javax.swing.JPanel;
+import static sortowanie_odpadow.Stan.odpady;
+import static sortowanie_odpadow.Stan.pojemniki;
 
 
 public class RysujGre extends JPanel {
@@ -15,24 +18,14 @@ public class RysujGre extends JPanel {
     
 
     Odpad pierwszy;
-    private Pojemnik [] pojemniki;
-  
+    
+
     
 
     RysujGre() throws InterruptedException{
         super ();
-        Stan.klikniecia = 0;
-        Stan.bufor = new Pojemnik(0,Pliki.zdjecia_odpadow);
-        pierwszy = new Odpad(4, Pliki.zdjecia_odpadow);
-        pojemniki = new Pojemnik [Pliki.zdjecia_pojemnikow.length];
-        for (int i=0 ; i < Pliki.zdjecia_pojemnikow.length ; i++){
-            pojemniki[i] = new Pojemnik(i, Pliki.zdjecia_pojemnikow);
-            pojemniki[i].polozenie_y = 768-150;
-            pojemniki[i].polozenie_x = 0 + i * (1024/6);    //(pojemniki[i].obrazek.getWidth(null)); 
-            
-            
-        }
-      
+
+        StanPoczatkowy();
        
        addMouseListener(new MouseAdapter(){
             @Override
@@ -45,7 +38,7 @@ public class RysujGre extends JPanel {
                    Stan.klikniecia++;
                    //System.out.println(Stan.klikniecia);
                      if(Stan.klikniecia ==1){
-                       Stan.x1 = pojemniki[i].polozenie_x;
+                       Stan.x1 = Stan.pojemniki[i].polozenie_x;
                        Stan.klikniety1 =i;
                        //System.out.println("zamieniam "+i);
                    }
@@ -76,28 +69,64 @@ public class RysujGre extends JPanel {
     @Override
             public void paintComponent(Graphics gs) {
                 Graphics2D g = (Graphics2D)gs;
+
+
+
+             
+            for (int i =0; i<Pliki.zdjecia_pojemnikow.length; i++){
+            for (int j=0; j<Stan.max_odpadow_rzad; j++){
+                if(odpady[i][j] != null){
+                g.drawImage(odpady[i][j].obrazek, odpady[i][j].x,odpady[i][j].aktualny_y,odpady[i][j].szerokosc,odpady[i][j].wysokosc, null);
+                 odpady[i][j].Ruch();
+                   
+                     
+                 
+                }
+            }
                 
-                for (int i=0; i<Pliki.zdjecia_pojemnikow.length; i++){
-                    g.drawImage(pojemniki[i].obrazek, pojemniki[i].polozenie_x, pojemniki[i].polozenie_y,pojemniki[i].szerokosc ,150 , null);
+        }       
+             for (int i=0; i<Pliki.zdjecia_pojemnikow.length; i++){
+                    g.drawImage(Stan.pojemniki[i].obrazek, Stan.pojemniki[i].polozenie_x, Stan.pojemniki[i].polozenie_y,Stan.pojemniki[i].szerokosc ,Stan.pojemniki[i].wysokosc , null);
                 } 
-             //g.drawImage(pojemniki[0].obrazek, 1024-pojemniki[0].obrazek.getWidth(null), 768-pojemniki[0].obrazek.getHeight(null),pojemniki[0].obrazek.getWidth(null) , pojemniki[0].obrazek.getHeight(null), null);
-                
-                g.drawImage(pierwszy.obrazek, pierwszy.poczatkowy_x,pierwszy.aktualny_y,1024/6,150, null);
-                pierwszy.Ruch();
+               /* g.drawImage(pierwszy.obrazek, pierwszy.x,pierwszy.aktualny_y,pierwszy.szerokosc,pierwszy.wysokosc, null);
+               System.out.println("odpad: "+(pierwszy.aktualny_y+pierwszy.wysokosc)+" Pojemnik: "+(Okno.wysokosc - Stan.wysokosc_pojemnikow + pierwszy.wysokosc*0.3));
+               pierwszy.Ruch(); */
             }
     
             
-   /* private void RozpocznijGre() throws InterruptedException{
-         
-        for (int i =0; i<10; i++){
-        pierwszy.Ruch();
-        System.out.println(pierwszy.aktualny_y);
-        repaint();
-        sleep(500);
-           
+
+    
+    private void StanPoczatkowy(){
+        pierwszy = new Odpad (0,Pliki.zdjecia_odpadow,Stan.wysokosc_odpadow, (1 * (Okno.szerokosc/Pliki.zdjecia_pojemnikow.length)),1,2);
+        Stan.czas_do_kolejnego = 0 ;
+        Stan.ilosc_zyc =3;
+        Stan.punkty =0;
+        Stan.klikniecia = 0;
+        Stan.bufor = new Pojemnik(0,Pliki.zdjecia_odpadow,150);
+        Stan.wysokosc_odpadow = 150;
+        Stan.wysokosc_pojemnikow = 150;
+        //pierwszy = new Odpad(4, Pliki.zdjecia_odpadow,Stan.wysokosc_odpadow);
+        pojemniki = new Pojemnik [Pliki.zdjecia_pojemnikow.length];
+        Stan.max_odpadow_rzad = (Okno.wysokosc - Stan.wysokosc_pojemnikow)/Stan.wysokosc_odpadow;
+        //System.out.println(Stan.max_odpadow_rzad);
+        Stan.odpady = new Odpad[Pliki.zdjecia_pojemnikow.length][Stan.max_odpadow_rzad];
+        for (int i =0; i<Pliki.zdjecia_pojemnikow.length; i++){
+            for (int j=0; j<Stan.max_odpadow_rzad; j++){
+                Stan.odpady[i][j] = null;
+            }
         }
+        
+        
+        for (int i=0 ; i < Pliki.zdjecia_pojemnikow.length ; i++){
+            pojemniki[i] = new Pojemnik(i, Pliki.zdjecia_pojemnikow,Stan.wysokosc_pojemnikow);
+            pojemniki[i].polozenie_y = 768-150;
+            pojemniki[i].polozenie_x =  i * (1024/6);    //(pojemniki[i].obrazek.getWidth(null)); 
+            
+            
+        }
+    }
 
-    }      */  
+    }     
 
-}
+
 
