@@ -14,11 +14,14 @@ public class Odpad {
    Rodzaj rodzaj;
   public Image obrazek;
    public boolean wpadl = false; // false jezeli nie wpadl do pojemnika, true jezeli wpadl
-   int dy = 1;
-   int poczatkowy_x = 0;
-   int poczatkowy_y = 0;
-   int aktualny_y = 0;
-        
+   int dy;
+   int x;
+   int poczatkowy_y;
+   int aktualny_y;
+   int wysokosc;
+   int szerokosc;
+   int rzad;
+   int pozycja;
    private Rodzaj Okresl_rodzaj (int jaki){
     
        switch (jaki){
@@ -52,16 +55,24 @@ public class Odpad {
     
 
     
-    Odpad (int jaki, Image [] obrazki){
+    Odpad (int jaki, Image [] obrazki, int wysokosc, int x, int rzad, int pozycja){
+        dy = 1;
+        this.wysokosc = wysokosc;
+        szerokosc = Okno.szerokosc/Pliki.zdjecia_pojemnikow.length;
+        this.x =x ;
+        poczatkowy_y = -wysokosc;
+        aktualny_y = -wysokosc;
         this.jaki = jaki;
         this.rodzaj = Okresl_rodzaj(jaki);
         this.obrazek = obrazki[jaki];
+        this.rzad = rzad;
+        this.pozycja = pozycja;
+        
     };
     
     public void Ruch ()
     {
        this.aktualny_y = aktualny_y + dy;  
-       
     };
     
     
