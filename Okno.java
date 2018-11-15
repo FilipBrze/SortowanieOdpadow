@@ -43,12 +43,12 @@ public class Okno extends JFrame {
     
     private void animationLoop() {
         
-        while (true) {
+        while (Stan.graj) {
          
           repaint();
         
           try {
-            Thread.sleep(20);
+            Thread.sleep(10);
           } catch (InterruptedException ex) {System.out.println("Wyjątek: "+ex);      }
         }
     }

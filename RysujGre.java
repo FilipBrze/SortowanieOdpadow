@@ -1,6 +1,8 @@
 
 package sortowanie_odpadow;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -20,7 +22,7 @@ public class RysujGre extends JPanel {
     private Odpad [][] odpady;
     
 
-    RysujGre() throws InterruptedException{
+    RysujGre() {
         super ();
 
         StanPoczatkowy();
@@ -30,11 +32,11 @@ public class RysujGre extends JPanel {
           public void mouseClicked(MouseEvent me){
 
           for(int i=0; i<pojemniki.length; i++){
-           if(me.getY()>(768-150)){
+           if(me.getY()>(Okno.wysokosc - Stan.wysokosc_pojemnikow - Stan.wysokosc_paska) && me.getY()< (Okno.wysokosc - Stan.wysokosc_paska)){
                if(me.getX()>pojemniki[i].polozenie_x && me.getX()<(pojemniki[i].polozenie_x+pojemniki[i].szerokosc)){
-                   //System.out.println("Kliknalem "+i);
+                   System.out.println("Kliknalem "+i);
                    Stan.klikniecia++;
-                   //System.out.println(Stan.klikniecia);
+                   System.out.println(Stan.klikniecia);
                      if(Stan.klikniecia ==1){
                        Stan.x1 = pojemniki[i].polozenie_x;
                        Stan.klikniety1 =i;
@@ -68,10 +70,13 @@ public class RysujGre extends JPanel {
             public void paintComponent(Graphics gs) {
                 Graphics2D g = (Graphics2D)gs;
                 
-                
+               g.setColor(Color.WHITE) ;
+               g.fillRect(0, (Okno.wysokosc - Stan.wysokosc_paska) , Okno.szerokosc, Stan.wysokosc_paska);
+                g.setColor(Color.BLACK) ;
+               g.drawRect(0, (Okno.wysokosc - Stan.wysokosc_paska) , Okno.szerokosc - 1 , Stan.wysokosc_paska -1);
              //g.drawImage(pojemniki[0].obrazek, 1024-pojemniki[0].obrazek.getWidth(null), 768-pojemniki[0].obrazek.getHeight(null),pojemniki[0].obrazek.getWidth(null) , pojemniki[0].obrazek.getHeight(null), null);
              Stan.czas_do_kolejnego++;
-             if(Stan.czas_do_kolejnego > 100){
+             if(Stan.czas_do_kolejnego > Stan.predkosc ){
              Losuj(odpady);
              Stan.czas_do_kolejnego = 0;
              };
@@ -95,7 +100,7 @@ public class RysujGre extends JPanel {
                          ZliczajTypy(odpady[i][j].rodzaj, '-');
                          odpady[i][j] = null;
                          Stan.jest_odpadow --;
-                         System.out.println("usunietp obiekto wspolrzednych: rzad"+i+" pozycja: "+j);
+                         //System.out.println("usunietp obiekto wspolrzednych: rzad"+i+" pozycja: "+j);
                      }
                  
                 }
@@ -105,14 +110,46 @@ public class RysujGre extends JPanel {
              for (int i=0; i<Pliki.zdjecia_pojemnikow.length; i++){
                     g.drawImage(pojemniki[i].obrazek, pojemniki[i].polozenie_x, pojemniki[i].polozenie_y,pojemniki[i].szerokosc ,pojemniki[i].wysokosc , null);
                 } 
-               /* g.drawImage(pierwszy.obrazek, pierwszy.x,pierwszy.aktualny_y,pierwszy.szerokosc,pierwszy.wysokosc, null);
-               System.out.println("odpad: "+(pierwszy.aktualny_y+pierwszy.wysokosc)+" Pojemnik: "+(Okno.wysokosc - Stan.wysokosc_pojemnikow + pierwszy.wysokosc*0.3));
-               pierwszy.Ruch(); */
+                
+                g.setFont(new Font("Serif",Font.PLAIN,20));
+              	g.drawString("Punkty: "+Integer.toString(Stan.punkty), 20, Okno.wysokosc - ((Stan.wysokosc_paska-10)/2) );
+                g.drawString("Życie: ", Okno.szerokosc/2 + 100, Okno.wysokosc - ((Stan.wysokosc_paska-10)/2) );
+
+                    if(Stan.ilosc_zyc > 0){
+                         g.drawImage(Pliki.drzewka[1], Okno.szerokosc/2 + 200,Okno.wysokosc - Stan.wysokosc_paska +1,40,40, null);
+                    }
+                    else 
+                         g.drawImage(Pliki.drzewka[0], Okno.szerokosc/2 + 200,Okno.wysokosc - Stan.wysokosc_paska +1,40,40, null);
+                    
+                    if(Stan.ilosc_zyc > 1){
+                         g.drawImage(Pliki.drzewka[1], Okno.szerokosc/2 + 250,Okno.wysokosc - Stan.wysokosc_paska +1,40,40, null);
+                    }
+                    else 
+                         g.drawImage(Pliki.drzewka[0], Okno.szerokosc/2 + 250,Okno.wysokosc - Stan.wysokosc_paska +1,40,40, null);
+                    
+                    if(Stan.ilosc_zyc > 2){
+                         g.drawImage(Pliki.drzewka[1], Okno.szerokosc/2 + 300,Okno.wysokosc - Stan.wysokosc_paska +1,40,40, null);
+                    }
+                    else 
+                         g.drawImage(Pliki.drzewka[0], Okno.szerokosc/2 + 300,Okno.wysokosc - Stan.wysokosc_paska +1,40,40, null);
+                    
+                    if (Stan.ilosc_zyc == 0){
+                         g.setColor(Color.BLACK) ;
+                        g.fillRect(0, 0 , Okno.szerokosc, Okno.wysokosc);
+                        g.setColor(Color.RED) ;
+                        g.setFont(new Font("Serif",Font.BOLD,50));
+                        g.drawString("PRZEGRANKO :(",Okno.szerokosc/2,Okno.wysokosc/2);
+                        Stan.graj = false;
+                    } 
+                    
+                  //  Przyspieszenie(Stan.punkty);
+                
             }
     
             
     private void Losuj(Odpad [][] odpady) {
-        int ile;
+        int ile_przejsc = 0;
+        int zapelnione_typy = 0;
          int rzad;
          int jaki;
          boolean moze_powstac;
@@ -122,7 +159,7 @@ public class RysujGre extends JPanel {
          
          jaki = losowanie.nextInt(Pliki.zdjecia_odpadow.length);
          while(utworzono_odpad == false){
-
+          
          rzad = losowanie.nextInt(Pliki.zdjecia_pojemnikow.length);
         // System.out.println("Wylosowano rzad "+rzad);
          for (int i =0; i<odpady[rzad].length; i++){
@@ -139,26 +176,37 @@ public class RysujGre extends JPanel {
                  }
                  if (moze_powstac != false){
                      
-                     while (IleTegoTypu(jaki) > 2){
+                     
+                         for (int k=0; k<Pliki.zdjecia_pojemnikow.length; k++){
+                             if(IleTegoTypu(k) > 1)
+                                 zapelnione_typy++;
+                             if(zapelnione_typy <Pliki.zdjecia_pojemnikow.length){
+                                 while (IleTegoTypu(jaki) > 1){
                          jaki = losowanie.nextInt(Pliki.zdjecia_odpadow.length);
+                                 }
+                             }
+                                 
+                         }
                          System.out.println("losowanieponowne");
-                     }
+                     
                      odpady[rzad][i] = new Odpad (jaki,Pliki.zdjecia_odpadow,Stan.wysokosc_odpadow, (rzad * (Okno.szerokosc/Pliki.zdjecia_pojemnikow.length)),rzad,i);
                      utworzono_odpad = true;
                      Stan.jest_odpadow ++;
                      ZliczajTypy(odpady[rzad][i].rodzaj, '+');
                     
-                     System.out.println("stworzono obiekt nr "+Stan.jest_odpadow+" o wspolrzednych: rzad"+rzad+" pozycja: "+i+" typu: "+odpady[rzad][i].rodzaj);
-                      System.out.println("jest: " +IleTegoTypu(jaki)+" odpadow typu "+odpady[rzad][i].rodzaj);
+                    // System.out.println("stworzono obiekt nr "+Stan.jest_odpadow+" o wspolrzednych: rzad"+rzad+" pozycja: "+i+" typu: "+odpady[rzad][i].rodzaj);
+                     // System.out.println("jest: " +IleTegoTypu(jaki)+" odpadow typu "+odpady[rzad][i].rodzaj);
              }
              
          }
    
                      
 
-    }      
-         if (Stan.jest_odpadow >= (Pliki.zdjecia_pojemnikow.length*Stan.max_odpadow_rzad))
-             utworzono_odpad = true;
+    }     
+         ile_przejsc ++;
+         System.out.println(ile_przejsc);
+         if ((Pliki.zdjecia_pojemnikow.length*Stan.max_odpadow_rzad)> ile_przejsc) //oznacza to ze doszlo do zapetlenia i nie da sie stworzyc nowego odpadu 
+             utworzono_odpad = true;// w takim przypadku nalezy opuscic petle i poczekac az jakis odpad zostanie usuniety
         
     }
     }
@@ -246,7 +294,23 @@ public class RysujGre extends JPanel {
         return ile;
     }
     
+    private void Przyspieszenie(int punkty){
+        if (punkty != 0){
+        if(punkty%5 == 0){
+            Stan.predkosc = Stan.predkosc - 20;
+            Stan.mozna_przyspieszyc = false;
+            //System.out.println("Przyspieszenie");
+        }
+        else Stan.mozna_przyspieszyc = true;
+        
+    }
+    }
+    
     private void StanPoczatkowy(){
+        Stan.mozna_przyspieszyc = true;
+        Stan.predkosc = 200;
+        Stan.graj = true;
+        Stan.wysokosc_paska = 50;
         Stan.jest_odpadow =0;
         Stan.ile_bio =0;
         Stan.ile_elektro =0;
@@ -278,7 +342,7 @@ public class RysujGre extends JPanel {
         // odpady[0][1] = new Odpad (1,Pliki.zdjecia_odpadow,Stan.wysokosc_odpadow, (0 * (Okno.szerokosc/Pliki.zdjecia_pojemnikow.length)),0,1);
         for (int i=0 ; i < Pliki.zdjecia_pojemnikow.length ; i++){
             pojemniki[i] = new Pojemnik(i, Pliki.zdjecia_pojemnikow,Stan.wysokosc_pojemnikow);
-            pojemniki[i].polozenie_y = 768-150;
+            pojemniki[i].polozenie_y = 768-150-Stan.wysokosc_paska;
             pojemniki[i].polozenie_x =  i * (1024/6);    //(pojemniki[i].obrazek.getWidth(null)); 
             
             
