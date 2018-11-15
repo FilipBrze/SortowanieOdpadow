@@ -22,4 +22,8 @@ public class Stan {
     public static int ile_szklo;
     public static int ile_leki;
     public static int ile_elektro;
+    public static int wysokosc_paska;
+    public static boolean graj;
+    public static int predkosc;
+    public static boolean mozna_przyspieszyc;
 }
