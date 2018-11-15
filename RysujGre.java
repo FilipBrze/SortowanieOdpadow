@@ -24,7 +24,7 @@ public class RysujGre extends JPanel {
         super ();
 
         StanPoczatkowy();
-       
+      
        addMouseListener(new MouseAdapter(){
             @Override
           public void mouseClicked(MouseEvent me){
@@ -71,11 +71,10 @@ public class RysujGre extends JPanel {
                 
              //g.drawImage(pojemniki[0].obrazek, 1024-pojemniki[0].obrazek.getWidth(null), 768-pojemniki[0].obrazek.getHeight(null),pojemniki[0].obrazek.getWidth(null) , pojemniki[0].obrazek.getHeight(null), null);
              Stan.czas_do_kolejnego++;
-             if(Stan.czas_do_kolejnego > 60){
+             if(Stan.czas_do_kolejnego > 100){
              Losuj(odpady);
              Stan.czas_do_kolejnego = 0;
              };
-             
             for (int i =0; i<Pliki.zdjecia_pojemnikow.length; i++){
             for (int j=0; j<Stan.max_odpadow_rzad; j++){
                 if(odpady[i][j] != null){
@@ -84,21 +83,19 @@ public class RysujGre extends JPanel {
                      if((odpady[i][j].aktualny_y+odpady[i][j].wysokosc) >= (Okno.wysokosc - Stan.wysokosc_pojemnikow + odpady[i][j].wysokosc*0.3)){
                       //  System.out.println("odpad: "+(odpady[i][j].aktualny_y+odpady[i][j].wysokosc)+" Pojemnik: "+(Okno.wysokosc - Stan.wysokosc_pojemnikow + odpady[i][j].wysokosc*0.3));
                       
-                        if(odpady[i][j].rodzaj == pojemniki[odpady[i][j].rzad].rodzaj){
-                           if (Stan.k==0){
+                        if(odpady[i][j].rodzaj == pojemniki[odpady[i][j].rzad].rodzaj)
                             Stan.punkty++;
-                            Stan.k++;
-                           }
-                        }
+                        
                            
-                        else {
-                            if(Stan.k==0)
+                        else 
                             Stan.ilosc_zyc--;
-                            Stan.k++;
-                        }
-                        System.out.println("punkty: "+Stan.punkty+" zycia: "+Stan.ilosc_zyc);
+
+                        //System.out.println("punkty: "+Stan.punkty+" zycia: "+Stan.ilosc_zyc);
                          //System.out.println("Odpad: "+odpady[i][j].rodzaj+" pojemnik: "+pojemniki[odpady[i][j].rzad].rodzaj);
+                         ZliczajTypy(odpady[i][j].rodzaj, '-');
                          odpady[i][j] = null;
+                         Stan.jest_odpadow --;
+                         System.out.println("usunietp obiekto wspolrzednych: rzad"+i+" pozycja: "+j);
                      }
                  
                 }
@@ -115,51 +112,150 @@ public class RysujGre extends JPanel {
     
             
     private void Losuj(Odpad [][] odpady) {
-      //System.out.println("XD");
-      Stan.k =0;
-        int licz =0;
+        int ile;
          int rzad;
          int jaki;
-         boolean moze_powstac = true;
-         int utworzono_odpad = 0;
+         boolean moze_powstac;
+         boolean utworzono_odpad = false;
          Random losowanie = new Random();
+
          
          jaki = losowanie.nextInt(Pliki.zdjecia_odpadow.length);
-        
-         while(utworzono_odpad == 0){
-        licz++;
+         while(utworzono_odpad == false){
+
          rzad = losowanie.nextInt(Pliki.zdjecia_pojemnikow.length);
-         for (int i =0; i<Stan.max_odpadow_rzad; i++){
-             if (odpady[rzad][i] != null){
-                 if(odpady[rzad][i].aktualny_y <= 0){
-                 moze_powstac = true;
-             }
-                 else if (odpady[rzad][i] != null)
-                     moze_powstac = false;
-             }
-         }
-         
-         for (int i =0; i<Stan.max_odpadow_rzad; i++){
-             if (odpady[rzad][i] == null){
-                 if (moze_powstac == true){
-                     odpady[rzad][i] = new Odpad(jaki,Pliki.zdjecia_odpadow,Stan.wysokosc_odpadow, (rzad * (Okno.szerokosc/Pliki.zdjecia_pojemnikow.length)),rzad,i);
-                     utworzono_odpad = 1;
-                     //System.out.println("Utworzono element: "+licz);
+        // System.out.println("Wylosowano rzad "+rzad);
+         for (int i =0; i<odpady[rzad].length; i++){
+             moze_powstac = true;
+             //System.out.println("JEstem teraz w rzedzie "+rzad+" komorce: "+i);
+             if(odpady[rzad][i] == null){  //jezeli w tej komorce nic nie ma
+                 //System.out.println("Wszedlem do if ");
+                 for (int j =0; j<odpady[rzad].length; j++){
+                    // System.out.println("JEstem teraz w forze w rzedzie "+rzad+" komorce: "+j);
+                     if(odpady[rzad][j] != null){
+                     if(odpady[rzad][j].aktualny_y <= 0 )
+                       moze_powstac = false;
+                     }
                  }
+                 if (moze_powstac != false){
+                     
+                     while (IleTegoTypu(jaki) > 2){
+                         jaki = losowanie.nextInt(Pliki.zdjecia_odpadow.length);
+                         System.out.println("losowanieponowne");
+                     }
+                     odpady[rzad][i] = new Odpad (jaki,Pliki.zdjecia_odpadow,Stan.wysokosc_odpadow, (rzad * (Okno.szerokosc/Pliki.zdjecia_pojemnikow.length)),rzad,i);
+                     utworzono_odpad = true;
+                     Stan.jest_odpadow ++;
+                     ZliczajTypy(odpady[rzad][i].rodzaj, '+');
+                    
+                     System.out.println("stworzono obiekt nr "+Stan.jest_odpadow+" o wspolrzednych: rzad"+rzad+" pozycja: "+i+" typu: "+odpady[rzad][i].rodzaj);
+                      System.out.println("jest: " +IleTegoTypu(jaki)+" odpadow typu "+odpady[rzad][i].rodzaj);
              }
+             
          }
-         if(licz == (Pliki.zdjecia_pojemnikow.length*Stan.max_odpadow_rzad)){
-             utworzono_odpad = 1;
-            // System.out.println("BREAK");
-         }
+   
+                     
+
     }      
+         if (Stan.jest_odpadow >= (Pliki.zdjecia_pojemnikow.length*Stan.max_odpadow_rzad))
+             utworzono_odpad = true;
         
+    }
+    }
+    
+    private void ZliczajTypy(Odpad.Rodzaj rodzaj, char operacja){
+        switch(rodzaj){
+            case PLASTIK_METAL: {
+                if(operacja == '+')
+                    Stan.ile_metal++;
+                else if(operacja == '-')
+                    Stan.ile_metal--;
+            }
+            break;
+            
+            case SZKLO: {
+                if(operacja == '+')
+                    Stan.ile_szklo++;
+                else if(operacja == '-') 
+                    Stan.ile_szklo--;
+            }
+            break;
+            
+            case PAPIER: {
+                if(operacja == '+')
+                    Stan.ile_papier++;
+                else if(operacja == '-')
+                    Stan.ile_papier--;
+            }
+            break;
+            
+            case BIODEGRADOWALNE: {
+                if(operacja == '+')
+                    Stan.ile_bio++;
+                else if(operacja == '-') 
+                    Stan.ile_bio--;
+            }
+            break;
+            
+            case LEKI: {
+                if(operacja == '+')
+                    Stan.ile_leki++;
+                else if(operacja == '-')
+                    Stan.ile_leki--;
+            }
+            break;
+            
+            case ELEKTRONIKA: {
+                if(operacja == '+')
+                    Stan.ile_elektro++;
+                else if(operacja == '-') 
+                    Stan.ile_elektro--;
+            }
+            break;
+                
+               
+        }
+    }
+    
+    private int IleTegoTypu(int jaki){
+        int ile =0;
+        switch(jaki){
+            case 0: ile = Stan.ile_metal; 
+           break;
+           case 1: ile = Stan.ile_metal; 
+           break;
+           case 2: ile = Stan.ile_szklo; 
+           break;
+           case 3: ile = Stan.ile_papier;   
+           break;
+           case 4: ile = Stan.ile_bio;
+           break;
+           case 5: ile = Stan.ile_elektro;
+           break;
+           case 6: ile = Stan.ile_elektro;
+           break;
+           case 7: ile = Stan.ile_elektro;
+           break;
+           case 8: ile = Stan.ile_elektro;
+           break;
+           case 9: ile = Stan.ile_leki;
+           break;
+           case 10: ile = Stan.ile_papier;   
+           break;
+        }
+        return ile;
     }
     
     private void StanPoczatkowy(){
-
+        Stan.jest_odpadow =0;
+        Stan.ile_bio =0;
+        Stan.ile_elektro =0;
+        Stan.ile_leki =0;
+        Stan.ile_metal =0;
+        Stan.ile_papier = 0;
+        Stan.ile_szklo =0;
         pierwszy = new Odpad (0,Pliki.zdjecia_odpadow,Stan.wysokosc_odpadow, (1 * (Okno.szerokosc/Pliki.zdjecia_pojemnikow.length)),1,2);
-        Stan.czas_do_kolejnego = 61 ;
+        Stan.czas_do_kolejnego = 201 ;
         Stan.ilosc_zyc =3;
         Stan.punkty =0;
         Stan.klikniecia = 0;
@@ -174,11 +270,12 @@ public class RysujGre extends JPanel {
         for (int i =0; i<Pliki.zdjecia_pojemnikow.length; i++){
             for (int j=0; j<Stan.max_odpadow_rzad; j++){
                 odpady[i][j] = null;
+                
             }
                 
         }
-        
-        
+      //  odpady[4][3] = new Odpad (3,Pliki.zdjecia_odpadow,Stan.wysokosc_odpadow, (4 * (Okno.szerokosc/Pliki.zdjecia_pojemnikow.length)),4,3);
+        // odpady[0][1] = new Odpad (1,Pliki.zdjecia_odpadow,Stan.wysokosc_odpadow, (0 * (Okno.szerokosc/Pliki.zdjecia_pojemnikow.length)),0,1);
         for (int i=0 ; i < Pliki.zdjecia_pojemnikow.length ; i++){
             pojemniki[i] = new Pojemnik(i, Pliki.zdjecia_pojemnikow,Stan.wysokosc_pojemnikow);
             pojemniki[i].polozenie_y = 768-150;
@@ -187,6 +284,7 @@ public class RysujGre extends JPanel {
             
         }
     }
+    
+    
 
-    }     
-
+} 

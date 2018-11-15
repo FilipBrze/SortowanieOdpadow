@@ -1,4 +1,3 @@
-
 package sortowanie_odpadow;
 
 
@@ -16,5 +15,11 @@ public class Stan {
     public static int czas_do_kolejnego;
     public static int punkty;
     public static int ilosc_zyc;
-    public static int k;
+    public static int jest_odpadow;
+    public static int ile_bio;
+    public static int ile_papier;
+    public static int ile_metal;
+    public static int ile_szklo;
+    public static int ile_leki;
+    public static int ile_elektro;
 }
