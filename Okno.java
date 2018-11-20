@@ -48,7 +48,7 @@ public class Okno extends JFrame {
           repaint();
         
           try {
-            Thread.sleep(10);
+            Thread.sleep(Stan.uspij);
           } catch (InterruptedException ex) {System.out.println("Wyjątek: "+ex);      }
         }
     }

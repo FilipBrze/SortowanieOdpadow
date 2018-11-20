@@ -48,6 +48,32 @@ public class Odpad {
            break;
            case 10: this.rodzaj = Rodzaj.PAPIER; //karton
            break;
+           case 11: this.rodzaj = Rodzaj.PAPIER; //chusteczki
+           break;
+           case 12: this.rodzaj = Rodzaj.PAPIER; //kubek papierowy
+           break;
+           case 13: this.rodzaj = Rodzaj.PLASTIK_METAL; //papier po czekoladzie
+           break;
+           case 14: this.rodzaj = Rodzaj.SZKLO; //szklanka
+           break;
+           case 15: this.rodzaj = Rodzaj.LEKI; //syrop
+           break;
+           case 16: this.rodzaj = Rodzaj.BIODEGRADOWALNE; //worek po herbacie
+           break;
+           case 17: this.rodzaj = Rodzaj.BIODEGRADOWALNE; //skorupka jaja
+           break;
+           case 18: this.rodzaj = Rodzaj.SZKLO; //kieliszek
+           break;
+           case 19: this.rodzaj = Rodzaj.PLASTIK_METAL; //siatka plastikowa
+           break;
+           case 20: this.rodzaj = Rodzaj.LEKI; //strzykawka
+           break;
+           case 21: this.rodzaj = Rodzaj.BIODEGRADOWALNE; //skorka banana
+           break;
+           case 22: this.rodzaj = Rodzaj.LEKI; //masc
+           break;
+           case 23: this.rodzaj = Rodzaj.SZKLO; //sloik
+           break;
            
           
        }

@@ -17,7 +17,7 @@ public class Pliki {
    
    public static void LadujObrazki(){
        
-       zdjecia_odpadow = new Image[11];
+       zdjecia_odpadow = new Image[24];
        
        zdjecia_odpadow [0] = Laduj("Images/butelkaplastik.png");
        zdjecia_odpadow [1] = Laduj("Images/puszka.png");
@@ -30,6 +30,20 @@ public class Pliki {
        zdjecia_odpadow [8] = Laduj("Images/CD.png");
        zdjecia_odpadow [9] = Laduj("Images/leki.png");
        zdjecia_odpadow [10] = Laduj("Images/karton.png");
+       zdjecia_odpadow [11] = Laduj("Images/chusteczki.png");
+       zdjecia_odpadow [12] = Laduj("Images/kubekpapierowy.png");
+       zdjecia_odpadow [13] = Laduj("Images/czekolada.png");
+       zdjecia_odpadow [14] = Laduj("Images/szklanka.png");
+       zdjecia_odpadow [15] = Laduj("Images/syrop.png");
+       zdjecia_odpadow [16] = Laduj("Images/herbata.png");
+       zdjecia_odpadow [17] = Laduj("Images/jajko.png");
+       zdjecia_odpadow [18] = Laduj("Images/kieliszek.png");
+       zdjecia_odpadow [19] = Laduj("Images/siatka.png");
+       zdjecia_odpadow [20] = Laduj("Images/strzykawka.png");
+       zdjecia_odpadow [21] = Laduj("Images/banan.png");
+       zdjecia_odpadow [22] = Laduj("Images/masc.png");
+       zdjecia_odpadow [23] = Laduj("Images/sloik.png");
+      
        
        zdjecia_pojemnikow = new Image[6];
        
@@ -46,20 +60,7 @@ public class Pliki {
        drzewka [1] = Laduj("Images/drzewo_zdrowe.png");
    } ;
      
-    /* public void Laduj_Pliki (Image[] zdjecia_odpadow){
-     
-       this.zdjecia_odpadow [0] = new ImageIcon ("Images/butelkaplastik.png").getImage();
-       this.zdjecia_odpadow [1] = new ImageIcon ("Images/puszka.jpg").getImage();
-       this.zdjecia_odpadow [2] = new ImageIcon ("Images/butelkaszklo.jpg").getImage();
-       this.zdjecia_odpadow [3] = new ImageIcon ("Images/makulatura.jpg").getImage();
-       this.zdjecia_odpadow [4] = new ImageIcon ("Images/ogryzek.jpg").getImage();
-       this.zdjecia_odpadow [5] = new ImageIcon ("Images/pilot.jpg").getImage();
-       this.zdjecia_odpadow [6] = new ImageIcon ("Images/zarowka.jpg").getImage();       
-       this.zdjecia_odpadow [7] = new ImageIcon ("Images/bateria.jpg").getImage();
-       this.zdjecia_odpadow [8] = new ImageIcon ("Images/CD.jpg").getImage();
-       this.zdjecia_odpadow [9] = new ImageIcon ("Images/leki.jpg").getImage();
-       this.zdjecia_odpadow [10] = new ImageIcon ("Images/karton.jpg").getImage();
-     };  */
+
    
    public static Image Laduj(String nazwa_pliku) {
         return new ImageIcon(nazwa_pliku).getImage();
