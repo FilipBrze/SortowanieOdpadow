@@ -37,18 +37,18 @@ public class Okno extends JFrame {
     public void initGUI() throws InterruptedException {
       
        // JPanel obrazPanel = new RysujGre();
-        Pliki.LadujObrazki();
+        Pliki.ladujObrazki();
         add(new RysujGre());
     }
     
     private void animationLoop() {
         
-        while (true) {
+        while (Stan.graj) {
          
           repaint();
         
           try {
-            Thread.sleep(20);
+            Thread.sleep(Stan.uspij);
           } catch (InterruptedException ex) {System.out.println("Wyjątek: "+ex);      }
         }
     }
