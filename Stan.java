@@ -22,4 +22,15 @@ public class Stan {
     public static int ile_szklo;
     public static int ile_leki;
     public static int ile_elektro;
+    public static int wysokosc_paska;
+    public static boolean gra_skonczona;
+    public static int czestotliwosc;
+    public static boolean mozna_przyspieszyc;
+    public static int uspij;
+    public static int ostatni_wylosowany;
+    public static int czestotliwosc_graniczna;
+    public static boolean menu = true;
+    public static boolean rozpocznij;
+    public static int miejsce;
+    public static boolean top10;
 }

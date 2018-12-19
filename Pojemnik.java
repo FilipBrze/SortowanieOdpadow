@@ -17,13 +17,13 @@ public class Pojemnik {
     
     Pojemnik(int jaki, Image [] obrazki, int wysokosc){
         klikniety = false;
-        this.rodzaj = Okresl_rodzaj (jaki);
+        this.rodzaj = okresl_rodzaj (jaki);
         this.obrazek = obrazki [jaki];
         szerokosc = Okno.szerokosc/Pliki.zdjecia_pojemnikow.length; 
         this.wysokosc = wysokosc;
     }
     
-    private Odpad.Rodzaj Okresl_rodzaj (int jaki){
+    private Odpad.Rodzaj okresl_rodzaj (int jaki){
     
        switch (jaki){
            case 0: this.rodzaj = Odpad.Rodzaj.PLASTIK_METAL; // butelka plastikowa
@@ -42,7 +42,7 @@ public class Pojemnik {
        return rodzaj;
 };
     
-    public void UstawKlikniecie(boolean klikniety){
+    public void ustawKlikniecie(boolean klikniety){
         this.klikniety = klikniety;
 
     };
