@@ -1,3 +1,5 @@
+// okno wywolywane po zakonczeniu gry, ktore podsumowuje gre 
+
 
 package sortowanie_odpadow;
 
@@ -69,13 +71,13 @@ public class Przegrana extends JPanel{
     
          
     
-    public static void wywolajRanking() throws IOException{
+    public static void wywolajRanking() throws IOException{ 
 
-     if(Ranking.dodajDoListy(Stan.punkty)){
-         Stan.top10 = true;
+     if(Ranking.dodajDoListy(Stan.punkty)){  //wywolanie funkcji sprawdzajacej czy wynik jest w top 10 i zapisujacej wynik do top 10
+         Stan.top10 = true;   // jezeli funkcja zwrocila true, oznacza to ze uzyskany wynik jest w top 10
      }
      else
-         Stan.top10 = false;
+         Stan.top10 = false;  //jezeli funkcja zwrocila false, oznacza to ze uzyskany wynik nie jest w top 10
 
     } 
      

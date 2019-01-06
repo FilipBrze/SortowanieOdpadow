@@ -1,3 +1,4 @@
+//klasa rysujaca menu gry i obslugujaca jego dzialanie
 
 package sortowanie_odpadow;
 
@@ -16,8 +17,8 @@ import javax.swing.JPanel;
 
 public class Menu extends JPanel{
     
-    double przekatna;
-    int [] x1 = {0,0,Okno.szerokosc/2};
+        //ustawienie wierzcholkow 4 trojkatow, z ktorych sklada sie menu (kazdy trojkat to inny przycisk)
+        int [] x1 = {0,0,Okno.szerokosc/2};
         int [] x2 = {0,Okno.szerokosc,Okno.szerokosc/2};
         int [] x3 = {0,Okno.szerokosc,Okno.szerokosc/2};
         int [] x4 = {Okno.szerokosc,Okno.szerokosc,Okno.szerokosc/2};
@@ -33,14 +34,12 @@ public class Menu extends JPanel{
     Menu(){
         super();
         Stan.rozpocznij = false;
-        przekatna = Math.sqrt(Math.pow(Okno.wysokosc, 2) + Math.pow(Okno.szerokosc, 2));
         Stan.uspij = 0;
         addMouseMotionListener(new MouseAdapter(){
             @Override
-          public void mouseMoved(MouseEvent me){
+          public void mouseMoved(MouseEvent me){ // funkcja sprawdzajaca w obrebie ktorego przycisku znajduje sie myszka (przycisk zostaje wtedy podswietlony)
               if(new Polygon(x1,y1, 3).contains(new Point(me.getX(),me.getY())) ){
                   w1 = true;
-                  //repaint();
                   w2 = false;
                   w3 = false;
                   w4 = false;
@@ -50,28 +49,25 @@ public class Menu extends JPanel{
                   w1 = false;
                   w3 = false;
                   w4 = false;
-                 // repaint();
               }
               else if (new Polygon(x3,y3, 3).contains(new Point(me.getX(),me.getY()))){
                   w3 = true;
                   w1 = false;
                   w2 = false;
                   w4 = false;
-                  //repaint();
               }
               else if (new Polygon(x4,y4, 3).contains(new Point(me.getX(),me.getY()))){
                   w4 = true;
                   w1 = false;
                   w2 = false;
                   w3 = false;
-                  //repaint();
               }
                   
           
                } 
        } );
         
-        addMouseListener(new MouseAdapter(){
+        addMouseListener(new MouseAdapter(){  // czytanie klikniecia myszki i jego obsluga
             @Override
           public void mouseClicked(MouseEvent me){
             if (new Polygon(x3,y3, 3).contains(new Point(me.getX(),me.getY())))
@@ -89,12 +85,10 @@ public class Menu extends JPanel{
             }
             
                }
-         
-       } );
-        
+       } );  
     }
   @Override
-    public void paintComponent(Graphics gs){
+    public void paintComponent(Graphics gs){ //rysowanie menu
         Graphics2D g = (Graphics2D)gs;
         Color a = new Color(76, 187, 228);
         Color b = new Color(103,202,149);
@@ -111,7 +105,7 @@ public class Menu extends JPanel{
         g.drawString("WYJDŹ", Okno.szerokosc/2 - 70 , 3*Okno.wysokosc/4);
         g.drawString("INFORMACJE", Okno.szerokosc/4 - 70, Okno.wysokosc/2);
         g.drawString("NAJLEPSZE WYNIKI", 3*Okno.szerokosc/4 - 140, Okno.wysokosc/2);
-        if(w1){
+        if(w1){   //tutaj sprawdzane jest ktory trojkat nalezy podswietlic (ten w obrebie ktorego znajduje sie myszka -> wtedy odopwiednie wx = true)
         g.setPaint(podswietlenie);
         g.fillPolygon(x1,y1, 3);
         g.setColor(Color.BLACK);

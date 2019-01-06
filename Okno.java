@@ -1,3 +1,5 @@
+//klasa rysujaca glowne okno gry, do ktorego sa dodawane rozne elementy
+
 package sortowanie_odpadow ;
 
 import java.awt.CardLayout;
