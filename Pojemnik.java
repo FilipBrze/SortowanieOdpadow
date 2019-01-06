@@ -1,3 +1,4 @@
+//klasa definiujaca pojemniki na odpady
 
 package sortowanie_odpadow;
 
@@ -5,8 +6,8 @@ import java.awt.Image;
 
 
 public class Pojemnik {
-    int jaki;
-    Odpad.Rodzaj rodzaj;
+    int jaki; // tak samo jak w przypadku odpadow
+    Odpad.Rodzaj rodzaj; // rodzaj pojemnika (z tej samej puli co rodzaje odpadow)
     public Image obrazek;
     int polozenie_x;
     int polozenie_y ;
@@ -23,7 +24,7 @@ public class Pojemnik {
         this.wysokosc = wysokosc;
     }
     
-    private Odpad.Rodzaj okresl_rodzaj (int jaki){
+    private Odpad.Rodzaj okresl_rodzaj (int jaki){  // tak samo jak w przypadku odpadow
     
        switch (jaki){
            case 0: this.rodzaj = Odpad.Rodzaj.PLASTIK_METAL; // butelka plastikowa
@@ -42,7 +43,7 @@ public class Pojemnik {
        return rodzaj;
 };
     
-    public void ustawKlikniecie(boolean klikniety){
+    public void ustawKlikniecie(boolean klikniety){  // sprawdza czy pojemnik zostal wybrany przez gracza
         this.klikniety = klikniety;
 
     };

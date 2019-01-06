@@ -1,4 +1,6 @@
-
+//klasa ta sluzy to wypisania informacji w oknie "informacje o grze"
+//dziedziczy ona po JPanel i jest dodana do klasy OknoInformacji
+//rysujacej okno i obslugujacej jego dzialanie
 package sortowanie_odpadow;
 
 import java.awt.Color;
@@ -34,7 +36,7 @@ public class Informacje extends JPanel {
         g.setFont(new Font("TimesRoman", Font.BOLD, 20));
         g.drawString(" Zasady gry: ",0,440);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-        g.drawString(" Gra rozpoczyna się automatycznie po wybrania z menu opcji 'Nowa gra'.",0,490);
+        g.drawString(" Gra rozpoczyna się automatycznie po wybraniu z menu opcji 'Nowa gra'.",0,490);
         g.drawString(" Na dole ekranu znajduje się 6 różnych typów pojemników, które można zamieniać miejscami",0,520);
         g.drawString(" klikając myszką najpierw na jeden pojemnik a potem na drugi.",0,540);
         g.drawString(" Z góry ekranu spadają różne odpady. Należy tak zamieniać miejscami pojemniki, aby odpowiedni odpad",0,570);
@@ -71,7 +73,7 @@ public class Informacje extends JPanel {
         g.drawImage(Pliki.zdjecia_odpadow[1], 0, 1140 + Stan.wysokosc_pojemnikow*6+Stan.wysokosc_odpadow  ,Okno.szerokosc/Pliki.zdjecia_pojemnikow.length ,Stan.wysokosc_odpadow, null);
         g.drawString(" - Puszka",Okno.szerokosc/Pliki.zdjecia_pojemnikow.length+30,1140 + Stan.wysokosc_pojemnikow*6+Stan.wysokosc_odpadow/2+Stan.wysokosc_odpadow);
         g.drawImage(Pliki.zdjecia_odpadow[13], Okno.szerokosc/Pliki.zdjecia_pojemnikow.length+230, 1140 + Stan.wysokosc_pojemnikow*6+Stan.wysokosc_odpadow  ,Okno.szerokosc/Pliki.zdjecia_pojemnikow.length ,Stan.wysokosc_odpadow, null);
-        g.drawString(" - Papier po czekoladzie/batonie",Okno.szerokosc/Pliki.zdjecia_pojemnikow.length*2+260,1140 + Stan.wysokosc_pojemnikow*6+Stan.wysokosc_odpadow/2+Stan.wysokosc_odpadow);
+        g.drawString(" - Opakowanie po czekoladzie/batonie",Okno.szerokosc/Pliki.zdjecia_pojemnikow.length*2+260,1140 + Stan.wysokosc_pojemnikow*6+Stan.wysokosc_odpadow/2+Stan.wysokosc_odpadow);
         g.drawImage(Pliki.zdjecia_odpadow[19], Okno.szerokosc/Pliki.zdjecia_pojemnikow.length+230, 1120 + Stan.wysokosc_pojemnikow*6  ,Okno.szerokosc/Pliki.zdjecia_pojemnikow.length ,Stan.wysokosc_odpadow, null);
         g.drawString(" - Torba plastikowa",Okno.szerokosc/Pliki.zdjecia_pojemnikow.length*2+260,1120 + Stan.wysokosc_pojemnikow*6+Stan.wysokosc_odpadow/2);
         g.setFont(new Font("TimesRoman", Font.BOLD, 20));

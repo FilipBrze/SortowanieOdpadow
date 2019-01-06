@@ -1,4 +1,6 @@
 
+// klasa definiujaca odpady 
+
 package sortowanie_odpadow;
 
 import java.awt.Image;
@@ -23,7 +25,7 @@ public class Odpad {
    int szerokosc;
    int rzad;
    int pozycja;
-   private Rodzaj okresl_rodzaj (int jaki){
+   private Rodzaj okresl_rodzaj (int jaki){ // metoda okresla rodzaj na podstawie przeslanego numeru
     
        switch (jaki){
            case 0: this.rodzaj = Rodzaj.PLASTIK_METAL; // butelka plastikowa
@@ -97,11 +99,65 @@ public class Odpad {
         
     };
     
-    public void ruch ()
+    public void ruch ()   // funkcja ruchu odpadu (spadanie z gory ekranu)
     {
        this.aktualny_y = aktualny_y + dy;  
     };
     
-    
+        
+    public int ileTegoTypu(int jaki){ //funckja zwracajaca informacje ile jest odpadow podanego typu
+        int ile =0;
+        switch(jaki){
+            case 0: ile = Stan.ile_metal; 
+           break;
+           case 1: ile = Stan.ile_metal; 
+           break;
+           case 2: ile = Stan.ile_szklo; 
+           break;
+           case 3: ile = Stan.ile_papier;   
+           break;
+           case 4: ile = Stan.ile_bio;
+           break;
+           case 5: ile = Stan.ile_elektro;
+           break;
+           case 6: ile = Stan.ile_elektro;
+           break;
+           case 7: ile = Stan.ile_elektro;
+           break;
+           case 8: ile = Stan.ile_elektro;
+           break;
+           case 9: ile = Stan.ile_leki;
+           break;
+           case 10: ile = Stan.ile_papier;   
+           break;
+           case 11: ile = Stan.ile_papier;   
+           break;
+           case 12: ile = Stan.ile_papier;   
+           break;
+           case 13: ile = Stan.ile_metal;   
+           break;
+           case 14: ile = Stan.ile_szklo;   
+           break;
+           case 15: ile = Stan.ile_leki;   
+           break;
+           case 16: ile = Stan.ile_bio;   
+           break;
+           case 17: ile = Stan.ile_bio;   
+           break;
+           case 18: ile = Stan.ile_szklo;   
+           break;
+           case 19: ile = Stan.ile_metal;   
+           break;
+           case 20: ile = Stan.ile_leki;   
+           break;
+           case 21: ile = Stan.ile_bio;   
+           break;
+           case 22: ile = Stan.ile_leki;   
+           break;
+           case 23: ile = Stan.ile_szklo;   
+           break;
+        }
+        return ile;
+    }
     
 }

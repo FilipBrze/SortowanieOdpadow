@@ -1,3 +1,5 @@
+// klasa przechowujaca informacje o stanie gry
+
 package sortowanie_odpadow;
 
 

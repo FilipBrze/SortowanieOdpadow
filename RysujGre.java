@@ -1,4 +1,6 @@
 
+//klasa rysujaca i obslugujaca sama gre
+
 package sortowanie_odpadow;
 
 import java.awt.Color;
@@ -157,15 +159,12 @@ public class RysujGre extends JPanel {
                        
                        Okno.karty.show(Okno.okna,"PRZE");
                     } 
-                    
-                    
+                          
                         przyspieszenie();
-                
-                   
             }
     
             
-    private void losuj(Odpad [][] odpady) {
+    private void losuj(Odpad [][] odpady) {  // losowanie odpadow
         int ile_przejsc = 0;
         int zapelnione_typy = 0;
          int rzad;
@@ -215,7 +214,7 @@ public class RysujGre extends JPanel {
     }
     }
     
-    private void zliczajTypy(Odpad.Rodzaj rodzaj, char operacja){
+    private void zliczajTypy(Odpad.Rodzaj rodzaj, char operacja){ //funkcja liczaca ile jest lacznie odpadow danego typu
         switch(rodzaj){
             case PLASTIK_METAL: {
                 if(operacja == '+')
@@ -269,7 +268,7 @@ public class RysujGre extends JPanel {
         }
     }
     
-    private int ileTegoTypu(int jaki){
+    private int ileTegoTypu(int jaki){ //funckja zwracajaca informacje ile jest odpadow podanego typu
         int ile =0;
         switch(jaki){
             case 0: ile = Stan.ile_metal; 
@@ -324,7 +323,7 @@ public class RysujGre extends JPanel {
         return ile;
     }
     
-    private void przyspieszenie(){
+    private void przyspieszenie(){  //funkcja przyspieszajaca spadanie odpadow (wraz z uplywem gry)
         if (Stan.punkty != 0){
             
             if(Stan.punkty%5 == 0){
@@ -369,7 +368,6 @@ public class RysujGre extends JPanel {
         Stan.wysokosc_pojemnikow = 150;
         pojemniki = new Pojemnik [Pliki.zdjecia_pojemnikow.length];
         Stan.max_odpadow_rzad = (Okno.wysokosc - Stan.wysokosc_pojemnikow)/Stan.wysokosc_odpadow;
-        //System.out.println(Stan.max_odpadow_rzad);
         odpady = new Odpad [Pliki.zdjecia_pojemnikow.length][Stan.max_odpadow_rzad];
         for (int i =0; i<Pliki.zdjecia_pojemnikow.length; i++){
             for (int j=0; j<Stan.max_odpadow_rzad; j++){
@@ -383,12 +381,10 @@ public class RysujGre extends JPanel {
             pojemniki[i] = new Pojemnik(i, Pliki.zdjecia_pojemnikow,Stan.wysokosc_pojemnikow);
             pojemniki[i].polozenie_y = 768-150-Stan.wysokosc_paska;
             pojemniki[i].polozenie_x =  i * (1024/6);    
-            
-            
         }
     }
     
-     public static synchronized void dzwiek(final File f) {
+     public static synchronized void dzwiek(final File f) {  //odtwarzanie dzwieku
         new Thread(new Runnable() {
           public void run() {
             try {

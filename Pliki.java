@@ -1,3 +1,4 @@
+//klasa w ktorej ladowane sa wszystkie zasoby gry (obrazki i dzwieki) 
 
 package sortowanie_odpadow;
 

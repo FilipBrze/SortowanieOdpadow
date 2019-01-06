@@ -1,3 +1,4 @@
+//klasa main
 
 package sortowanie_odpadow;
 

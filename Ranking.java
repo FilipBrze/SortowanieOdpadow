@@ -1,3 +1,10 @@
+// klasa obslugujaca ranking, czyli 10 najlepszych wynikow uzyskanych przez gracza
+// 10 najlepszych wynikow jest przechowywanych w osobnym pliku tekstowym
+// klasa sprawdza czy uzyskany wynik miesci sie w top 10 oraz tworzy plik tekstowy z rankingiem 
+//jezeli nie istnieje, odczytuje i wyswietla dane z istniejacego pliku z rankingiem
+//w tej klasie sprawdzane sa takze wyniki - czy mieszcza sie w 10 najlepszych i jezeli tak, to sa 
+//do tego rankingu zapisywane
+
 
 package sortowanie_odpadow;
 
@@ -24,7 +31,7 @@ import javax.swing.JPanel;
 public class Ranking extends JPanel{
     
     static String l = null;
-    static ArrayList<String> lista = new ArrayList<String>();
+    static ArrayList<String> lista = new ArrayList<String>(); //lista przechowujaca dane odczytane z rankingu
     Color b = new Color(103,202,149);
     static File plik = new File("ranking.txt");
     static int [] top10 = new int[10];
@@ -77,8 +84,8 @@ public class Ranking extends JPanel{
         }
     }
     
-    private boolean odczytajRanking() throws IOException{
-          boolean istnieje;
+    private boolean odczytajRanking() throws IOException{  //funckja odczytujaca ranking z pliku tekstowego
+          boolean istnieje; // zmienna informujaca czy plik z rankingiem istnieje
          try {
  
             FileReader fr = new FileReader("ranking.txt");
@@ -92,15 +99,15 @@ public class Ranking extends JPanel{
 
             br.close();         
         }
-     catch(FileNotFoundException ex) {
-            istnieje = false;
+     catch(FileNotFoundException ex) {  // jezeli nie znaleziono pliku
+            istnieje = false;       // wtedy oznacza to ze nie istnieje
         }
          return istnieje;
      }
     
          
     public static boolean dodajDoListy(int wynik) throws IOException{
-        boolean wynik_dodany_do_top10 = false;
+        boolean wynik_dodany_do_top10 = false; // zmienna informujaca czy wynik zostal dodany do top 10 (true - tak, false - nie)
         try {
  
             FileReader fr = new FileReader("ranking.txt");
@@ -137,16 +144,13 @@ public class Ranking extends JPanel{
                    bufor1 = bufor2;
                }
                }
-               
                Stan.miejsce = poz+1;
            }
            else{
                int poz = 0;
                String bufor1 = null;
                for(int i=0;i<lista.size();i++){
-                  // top10[i] = Integer.parseInt(l);
-                   
-                   if(wynik >= Integer.parseInt(lista.get(i))/*top10[i]*/){
+                   if(wynik >= Integer.parseInt(lista.get(i))){
                        if(wynik_dodany_do_top10 == false){
                        bufor1 = lista.get(i);
                        poz = i;
@@ -154,7 +158,6 @@ public class Ranking extends JPanel{
                        wynik_dodany_do_top10 = true;
                        }
                    }
-                   
                }
                if(wynik_dodany_do_top10){
                String bufor2;
